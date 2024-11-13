@@ -1,8 +1,8 @@
 services:
   app:
-    build: .
+    build:
+      context: .
     container_name: fastapi_app
-    context: .
     ports:
       - "8000:8000"
     volumes:
