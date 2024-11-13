@@ -10,8 +10,10 @@ def send_error_to_telegram(error_message: str, topic: int = None):
         "chat_id": TELEGRAM_CHAT_ID,
         "text": error_message,
         "parse_mode": "HTML",
-        # "message_thread_id": topic
+        "message_thread_id": topic
     }
     response = requests.post(url, data=payload)
     return response.status_code, response.json()
 
+# Топик "Логи фронтенда": message_thread_id = 7
+# Топик "Логи бэкенда": message_thread_id = 9

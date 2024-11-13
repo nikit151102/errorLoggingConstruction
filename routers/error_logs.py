@@ -15,7 +15,7 @@ async def log_error_from_angular(error: FrontendErrorLogDto):
         f"<b>Время:</b> {error.timestamp}\n"
         f"<b>URL:</b>\n<pre>{error.url}</pre>"
     )
-    status, response = send_error_to_telegram(error_message, 2)
+    status, response = send_error_to_telegram(error_message, 7)
     return {"status": "Лог ошибки с фронтенда отправлен", "telegram_response": response}
 
 @router.post("/backend")
@@ -26,5 +26,5 @@ async def log_error_from_backend(error: ErrorResponseDto):
         f"<b>Детали:</b> {error.details}\n"
         f"<b>Время:</b> {error.timestamp}\n"
     )
-    status, response = send_error_to_telegram(error_message, 6)
+    status, response = send_error_to_telegram(error_message, 9)
     return {"status": "Лог ошибки с бэкенда отправлен", "telegram_response": response}
