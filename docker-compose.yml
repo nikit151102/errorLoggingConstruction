@@ -1,5 +1,5 @@
 services:
-  app:
+  telegram-log-service:
     build:
       context: .
     container_name: fastapi_app
