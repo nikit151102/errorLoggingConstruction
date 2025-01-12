@@ -1,30 +1,21 @@
 from fastapi import APIRouter
-from schemas.notifications import NewUserNotificationDto, NewJobNotificationDto, NewResumeNotificationDto
+from schemas.notifications import UserActionDto
 from utils.telegram import send_error_to_telegram
+from datetime import datetime
 
 router = APIRouter()
 
-@router.post("/new-user")
-async def notify_new_user(user: NewUserNotificationDto):
-    user_url = f"https://uteam.top/{user.username}"
-    message = (
-        f"<b>Новый пользователь:</b> <a href='{user_url}'>{user.username}</a>"
-    )
-    status, response = send_error_to_telegram(message, 8)
-    return {"status": "Уведомление о новом пользователе отправлено", "telegram_response": response}
+@router.post("/userActionInfo")
+async def log_user_action_to_telegram(user_action: UserActionDto):
+    current_time = datetime.now().strftime("%Y-%m-%d %H:%M")
 
-@router.post("/new-job")
-async def notify_new_job(job: NewJobNotificationDto):
-    job_url = f"https://uteam.top/vacancy/{job.id}"
-    message = f"<b>Новая вакансия:</b> <a href='{job_url}'>{job.title}</a>."
-    status, response = send_error_to_telegram(message, 8)
-    return {"status": "Уведомление о новой вакансии отправлено", "telegram_response": response}
-
-@router.post("/new-resume")
-async def notify_new_resume(resume: NewResumeNotificationDto):
-    resume_url = f"https://uteam.top/resume/{resume.id}"
-    message = (
-        f"<b>Новое резюме:</b> <a href='{resume_url}'>{resume.username}</a> ."
+    user_message = (
+        f"<b>Информация о пользователе:</b>\n"
+        f"<b>ID пользователя:</b> {user_action.user_id}\n"
+        f"<b>ФИО:</b> {user_action.user_full_name}\n"
+        f"<b>Действие:</b> {user_action.action}\n"
+        f"<b>Время:</b> {current_time}\n"
     )
-    status, response = send_error_to_telegram(message, 8)
-    return {"status": "Уведомление о новом резюме отправлено", "telegram_response": response}
+
+    status, response = send_error_to_telegram(user_message, 1261) 
+    return {"status": "Информация о пользователе отправлена", "telegram_response": response}

@@ -1,12 +1,6 @@
 from pydantic import BaseModel
 
-class NewUserNotificationDto(BaseModel):
-    username: str
-
-class NewJobNotificationDto(BaseModel):
-    id: str
-    title: str
-
-class NewResumeNotificationDto(BaseModel):
-    id: str
-    username: str
+class UserActionDto(BaseModel):
+    user_id: int
+    user_full_name: str
+    action: str

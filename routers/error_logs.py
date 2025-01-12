@@ -28,3 +28,4 @@ async def log_error_from_backend(error: ErrorResponseDto):
     )
     status, response = send_error_to_telegram(error_message, 9)
     return {"status": "Лог ошибки с бэкенда отправлен", "telegram_response": response}
+

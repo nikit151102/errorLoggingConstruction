@@ -17,3 +17,5 @@ def send_error_to_telegram(error_message: str, topic: int = None):
 
 # Топик "Логи фронтенда": message_thread_id = 7
 # Топик "Логи бэкенда": message_thread_id = 9
+# Топик "Логи бэкенда": message_thread_id = 1261
+
